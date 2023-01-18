@@ -1,0 +1,11 @@
+.players {
+  text-align: center;
+}
+
+.wrapper {
+  display: grid;
+  gap: 2.5rem;
+  max-width: 45rem;
+  margin: auto;
+  grid-auto-rows: min-content;
+}

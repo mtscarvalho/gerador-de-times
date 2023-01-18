@@ -1,0 +1,25 @@
+.textarea {
+  background: white;
+  border-radius: 4px;
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.textarea.large {
+  padding: 2.5rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.input {
+  border: none;
+  font-size: 1rem;
+  line-height: 1.7;
+
+  width: 100%;
+  height: clamp(17.5rem, 50vh, 25rem);
+  resize: none;
+}

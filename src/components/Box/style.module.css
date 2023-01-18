@@ -1,0 +1,8 @@
+.box {
+  background: white;
+  border-radius: 4px;
+  padding: 1.5rem;
+  text-align: left;
+  display: grid;
+  gap: 1.5rem;
+}
