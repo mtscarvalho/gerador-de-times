@@ -6,6 +6,7 @@ import TeamOptions from '../TeamOptions';
 import Players from '../Players';
 import Results from '../Results';
 import useSteps from '../../hooks/useSteps';
+import Nav from '../Nav/index.jsx';
 
 function App() {
   const dataTemplate = {
@@ -35,8 +36,14 @@ function App() {
       <Layout>
         <Header />
         {step}
-        {!isFirstStep && <button onClick={prev}>Prev</button>}
-        {!isLastStep && <button onClick={next}>Next</button>}
+        <Nav>
+          {!isFirstStep && <button onClick={prev}>Prev</button>}
+          {!isLastStep && (
+            <button disabled={isLastStep || (isFirstStep && data.players.length === 0)} onClick={next}>
+              Next
+            </button>
+          )}
+        </Nav>
         <Footer />
       </Layout>
     </div>
