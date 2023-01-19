@@ -22,8 +22,6 @@ export default function useSteps(steps) {
   };
 
   return {
-    currentStepIndex,
-    steps,
     step: steps[currentStepIndex],
     isFirstStep: currentStepIndex === 0,
     isLastStep: currentStepIndex === steps.length - 1,

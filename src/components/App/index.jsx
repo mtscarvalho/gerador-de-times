@@ -24,7 +24,7 @@ function App() {
     }));
   };
 
-  const { currentStepIndex, step, steps, prev, next, isFirstStep, isLastStep } =
+  const { step, isFirstStep, isLastStep, prev, next } =
     useSteps([
       <Players data={data} updateData={updateData} />,
       <TeamOptions data={data} updateData={updateData} />,
