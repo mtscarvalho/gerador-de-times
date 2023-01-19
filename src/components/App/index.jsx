@@ -5,13 +5,12 @@ import Layout from '../Layout';
 import TeamOptions from '../TeamOptions';
 import Players from '../Players';
 import Results from '../Results';
-
 import useSteps from '../../hooks/useSteps';
 
 function App() {
   const dataTemplate = {
     players: [],
-    numberOfPlayersPerTeam: 2,
+    playersPerTeam: 2,
     teams: [],
   };
 

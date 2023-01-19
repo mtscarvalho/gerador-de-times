@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import styles from './style.module.css';
 import Heading from '../Heading';
 
-function Counter({ editable, label, min, max, value }) {
-  const [counter, setCounter] = useState(value);
-
+function Counter({ label, value, onChange, min, max, editable }) {
   function handleIncrement() {
-    if (counter < max) {
-      setCounter(counter + 1);
+    if (value < max) {
+      onChange(value + 1);
     }
   }
 
   function handleDecrement() {
-    if (counter > min) {
-      setCounter(counter - 1);
+    if (value > min) {
+      onChange(value - 1);
     }
   }
 
@@ -28,7 +26,7 @@ function Counter({ editable, label, min, max, value }) {
             -
           </button>
         )}
-        <div className={styles.value}>{counter}</div>
+        <div className={styles.value}>{value}</div>
         {editable && (
           <button className={styles.button} onClick={handleIncrement} disabled={editable ? false : true}>
             +

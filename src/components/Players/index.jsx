@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './style.module.css';
 import Textarea from '../Textarea';
 import Heading from '../Heading';
@@ -6,14 +6,13 @@ import Button from '../Button';
 import Box from '../Box';
 
 function Players({ data, updateData }) {
-  const [players, setPlayers] = React.useState(data.players.join('\n'));
+  const [players, setPlayers] = useState(data.players.join('\n'));
 
   const handleAddPlayers = (e) => {
+    const playersAsArray = e.target.value.split('\n').filter((player) => player !== '');
+
     setPlayers(e.target.value);
-    updateData(
-      'players',
-      players.split('\n').filter((player) => player !== '')
-    );
+    updateData('players', playersAsArray);
   };
 
   return (
@@ -28,7 +27,6 @@ function Players({ data, updateData }) {
           </Heading>
           <Textarea id="playersList" placeholder="Digite o nome dos jogadores separando por linha." value={players} onChange={handleAddPlayers} />
         </Box>
-        <Button variant={'primary'}>Adicionar</Button>
       </div>
     </div>
   );

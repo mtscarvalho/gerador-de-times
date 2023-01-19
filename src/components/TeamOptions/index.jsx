@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './style.module.css';
 import Counter from '../Counter';
 import Heading from '../Heading';
-import Button from '../Button';
 
 function TeamOptions({ data, updateData }) {
-  const [numberOfPlayersPerTeam, setNumberOfPlayersPerTeam] = React.useState(data.numberOfPlayersPerTeam);
+  const [playersPerTeam, setPlayersPerTeam] = useState(data.playersPerTeam);
+  const totalPlayers = data.players.length;
+
+  const handleplayersPerTeam = (value) => {
+    setPlayersPerTeam(value);
+    updateData('playersPerTeam', value);
+  };
 
   return (
     <div className={style.teamOptions}>
@@ -13,9 +18,8 @@ function TeamOptions({ data, updateData }) {
         <Heading as={'h2'} size={'large'}>
           Quem irá jogar?
         </Heading>
-        <Counter editable={false} value={data.players.length} label="Total de jogadores" />
-        <Counter editable={true} min={2} max={data.players.length - 1} value={2} label="Número de jogadores por equipe" />
-        <Button variant={'primary'}>Adicionar</Button>
+        <Counter editable={false} value={totalPlayers} label="Total de jogadores" />
+        <Counter editable={true} value={playersPerTeam} label="Número de jogadores por equipe" min={2} max={totalPlayers - 1} onChange={handleplayersPerTeam} />
       </div>
     </div>
   );
