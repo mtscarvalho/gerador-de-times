@@ -19,7 +19,7 @@ function TeamOptions({ data, updateData }) {
           Quem irá jogar?
         </Heading>
         <Counter editable={false} value={totalPlayers} label="Total de jogadores" />
-        <Counter editable={true} value={playersPerTeam} label="Número de jogadores por equipe" min={2} max={totalPlayers - 1} onChange={handleplayersPerTeam} />
+        <Counter editable={true} value={playersPerTeam} label="Número de jogadores por equipe" min={2} max={Math.floor(totalPlayers / 2)} onChange={handleplayersPerTeam} />
       </div>
     </div>
   );
