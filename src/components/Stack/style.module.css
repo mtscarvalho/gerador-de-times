@@ -1,0 +1,13 @@
+.stack {
+  display: grid;
+  gap: 2.5rem;
+  grid-auto-rows: min-content;
+}
+
+.medium {
+  gap: 2.5rem;
+}
+
+.small {
+  gap: 1.5rem;
+}

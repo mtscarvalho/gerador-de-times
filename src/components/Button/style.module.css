@@ -1,10 +1,26 @@
 .button {
-  background-color: #000;
-  color: #fff;
-  border: 0;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 2px;
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
   cursor: pointer;
+  font-size: 1rem;
+  line-height: 2.5rem;
+  text-align: center;
+
+  display: flex;
+  place-content: center;
+  height: 2.5rem;
+  width: 8.75rem;
+}
+
+.button[disabled] {
+  cursor: not-allowed;
+}
+
+.primary {
+  background-color: var(--primary);
+}
+
+.surface {
+  background-color: var(--surface-1);
 }

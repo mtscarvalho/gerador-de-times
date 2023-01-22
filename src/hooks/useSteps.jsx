@@ -1,5 +1,3 @@
-// The website has three steps.
-
 import { useState } from 'react';
 
 export default function useSteps(steps) {

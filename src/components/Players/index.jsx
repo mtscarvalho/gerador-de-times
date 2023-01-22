@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import style from './style.module.css';
 import Textarea from '../Textarea';
 import Heading from '../Heading';
-import Button from '../Button';
 import Box from '../Box';
+import Stack from '../Stack/index.jsx';
 
 function Players({ data, updateData }) {
   const [players, setPlayers] = useState(data.players.join('\n'));
@@ -17,7 +17,7 @@ function Players({ data, updateData }) {
 
   return (
     <div className={style.players}>
-      <div className={style.wrapper}>
+      <Stack>
         <Heading as={'h2'} size={'large'}>
           Quem irá jogar?
         </Heading>
@@ -25,9 +25,9 @@ function Players({ data, updateData }) {
           <Heading as={'label'} size={'medium'} htmlFor="playersList" className="visually-hidden">
             Nome do jogador
           </Heading>
-          <Textarea id="playersList" placeholder="Digite o nome dos jogadores separando por linha." value={players} onChange={handleAddPlayers} />
+          <Textarea id="playersList" placeholder="Digite o nome dos jogadores separando por linha." value={players} size="large" onChange={handleAddPlayers} />
         </Box>
-      </div>
+      </Stack>
     </div>
   );
 }

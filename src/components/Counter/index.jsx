@@ -23,13 +23,13 @@ function Counter({ label, value, onChange, min, max, editable }) {
       <div className={styles.wrapper}>
         {editable && (
           <button className={styles.button} onClick={handleDecrement} disabled={editable ? false : true}>
-            -
+            &lt;
           </button>
         )}
         <div className={styles.value}>{value}</div>
         {editable && (
           <button className={styles.button} onClick={handleIncrement} disabled={editable ? false : true}>
-            +
+            &gt;
           </button>
         )}
       </div>

@@ -1,0 +1,9 @@
+.main {
+  display: grid;
+  height: 100%;
+  align-content: center;
+
+  margin: auto;
+  max-width: 55rem;
+  width: 100%;
+}

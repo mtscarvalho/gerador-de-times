@@ -5,4 +5,16 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.value {
+  padding: 1em;
+  font-size: 1.25rem;
+  min-width: 3em;
+}
+
+.button {
+  padding: 0.25em;
+  font-size: 1.25rem;
 }

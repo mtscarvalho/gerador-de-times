@@ -1,8 +1,26 @@
 .box {
-  background: white;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-2);
   border-radius: 4px;
-  padding: 1.5rem;
+  height: 100%;
   text-align: left;
+
   display: grid;
+  align-content: flex-start;
   gap: 1.5rem;
+}
+
+.colored {
+  --lightness: 94%;
+  --chroma: 5;
+
+  background: lch(var(--lightness) var(--chroma) var(--hue));
+}
+
+.medium {
+  padding: 1.5rem;
+}
+
+.large {
+  padding: 2.5rem;
 }
