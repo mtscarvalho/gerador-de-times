@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './style.module.css';
 import Heading from '../Heading';
 import PlayersGroup from '../PlayersGroup/index.jsx';
 import Stack from '../Stack/index.jsx';
+import Grid from '../Grid/index.jsx';
+import Button from '../Button/index.jsx';
 
-function Results({ data }) {
-  const { playersPerTeam, players } = data;
-  const shuffledPlayers = players.sort(() => Math.random() - 0.5);
-  const squads = [];
-  const reserves = [];
+function Results({ data, updateData }) {
+  const { playersPerTeam, players, teams, reserves } = data;
 
-  for (let i = 0; i < shuffledPlayers.length; i += playersPerTeam) {
-    if (i + playersPerTeam > shuffledPlayers.length) break;
+  const generateTeams = () => {
+    const shuffledPlayers = players.sort(() => Math.random() - 0.5);
 
-    squads.push({
-      players: shuffledPlayers.slice(i, i + playersPerTeam),
-    });
-  }
+    const teamsTemp = [];
+    const reservesTemp = [];
 
-  if (shuffledPlayers.length % playersPerTeam !== 0) {
-    reserves.push({
-      players: shuffledPlayers.slice(shuffledPlayers.length - (shuffledPlayers.length % playersPerTeam)),
-    });
-  }
+    for (let i = 0; i < shuffledPlayers.length; i += playersPerTeam) {
+      if (i + playersPerTeam > shuffledPlayers.length) break;
+      teamsTemp.push(shuffledPlayers.slice(i, i + playersPerTeam));
+    }
+
+    if (shuffledPlayers.length % playersPerTeam !== 0) {
+      reservesTemp.push(...shuffledPlayers.slice(shuffledPlayers.length - (shuffledPlayers.length % playersPerTeam)));
+    }
+
+    updateData('teams', teamsTemp);
+    updateData('reserves', reservesTemp);
+  };
+
+  useEffect(() => {
+    generateTeams();
+  }, []);
 
   return (
     <div className={style.results}>
@@ -30,19 +38,24 @@ function Results({ data }) {
         <Heading as={'h2'} size={'large'}>
           Equipe dividida. Bom jogo! ⚽️
         </Heading>
-        <div className={style.wrapper}>
-          {squads.map((squad, index) => (
-            // Randomize the background color for each group.
-            // To do this, set a different --hue for item in the loop.
-            // If set just  Math.floor(Math.random() * 360) it will be the same for all groups.
-            // To avoid this, we need to add the index to the random number.
-
-            <PlayersGroup label={`Equipe ${index + 1}`} group={squad.players} key={index} style={{ '--hue': Math.floor(Math.random() * 360) + index }} />
+        <Grid>
+          {teams.map((team, index) => (
+            <PlayersGroup
+              key={index}
+              title={`Time ${index + 1}`}
+              players={team}
+              style={{ '--hue': Math.floor(Math.random() * 360) + index }} />
           ))}
-          {reserves.map((reserve, index) => (
-            <PlayersGroup label={`Reserva(s)`} group={reserve.players} key={index} style={{ '--hue': Math.floor(Math.random() * 360) + index }} />
-          ))}
-        </div>
+          {reserves.length > 0 && (
+            <PlayersGroup
+              title={'Reservas'}
+              players={reserves}
+              style={{ '--hue': Math.floor(Math.random() * 360) + teams.length }} />
+          )}
+        </Grid>
+        <Button onClick={() => generateTeams()}>
+          Gerar novamente
+        </Button>
       </Stack>
     </div>
   );

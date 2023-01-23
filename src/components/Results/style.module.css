@@ -1,11 +1,3 @@
 .results {
   text-align: center;
 }
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18.75rem, auto));
-  grid-template-rows: 1fr;
-  gap: 2rem;
-  text-align: left;
-}

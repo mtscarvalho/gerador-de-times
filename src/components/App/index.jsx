@@ -16,6 +16,7 @@ function App() {
     players: [],
     playersPerTeam: 1,
     teams: [],
+    reserves: [],
   };
 
   const [data, setData] = useState(dataTemplate);
