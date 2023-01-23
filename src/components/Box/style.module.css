@@ -11,10 +11,10 @@
 }
 
 .colored {
-  --lightness: 94%;
-  --chroma: 5;
+  --saturation: 50%;
+  --lightness: 90%;
 
-  background: lch(var(--lightness) var(--chroma) var(--hue));
+  background: hsl(var(--hue) var(--saturation) var(--lightness));
 }
 
 .medium {
