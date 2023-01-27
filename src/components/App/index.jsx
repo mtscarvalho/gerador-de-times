@@ -28,12 +28,21 @@ function App() {
     }));
   };
 
-  const { step, isFirstStep, isLastStep, prev, next, goTo } =
-    useSteps([
-      <Players data={data} updateData={updateData} />,
-      <TeamOptions data={data} updateData={updateData} />,
-      <Results data={data} updateData={updateData} />
-    ]);
+  if (window.location.search) {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search.slice(1));
+
+    dataTemplate.players = params.get('players').split(',');
+    dataTemplate.playersPerTeam = parseInt(params.get('playersPerTeam'));
+    dataTemplate.teams = JSON.parse(decodeURIComponent(params.get('teams')));
+    dataTemplate.reserves = JSON.parse(decodeURIComponent(params.get('reserves')));
+  }
+
+  const { step, isFirstStep, isLastStep, prev, next, goTo } = useSteps([
+    <Players data={data} updateData={updateData} />,
+    <TeamOptions data={data} updateData={updateData} />,
+    <Results data={data} updateData={updateData} />,
+  ]);
 
   return (
     <div className="App">
@@ -50,7 +59,7 @@ function App() {
               )}
               {!isLastStep && (
                 <Button variant="primary" disabled={isLastStep || (isFirstStep && data.players.length <= 1)} onClick={next}>
-                  {isFirstStep ? 'Próximo' : 'Gerar'}
+                  {!isFirstStep && data.teams.length != 0 ? 'Gerar times' : 'Próximo'}
                 </Button>
               )}
             </Nav>
