@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import Layout from '../Layout';
@@ -21,13 +21,6 @@ function App() {
 
   const [data, setData] = useState(dataTemplate);
 
-  const updateData = (key, value) => {
-    setData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-  };
-
   if (window.location.search) {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search.slice(1));
@@ -38,11 +31,43 @@ function App() {
     dataTemplate.reserves = JSON.parse(decodeURIComponent(params.get('reserves')));
   }
 
+  const updateData = (key, value) => {
+    setData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  const shareResults = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('players', data.players.join(','));
+    url.searchParams.set('playersPerTeam', data.playersPerTeam);
+    url.searchParams.set('teams', encodeURIComponent(JSON.stringify(data.teams)));
+    url.searchParams.set('reserves', encodeURIComponent(JSON.stringify(data.reserves)));
+    url.searchParams.set('step', 3);
+
+    navigator.clipboard.writeText(url.href).then(
+      () => {
+        alert('Link copiado para a área de transferência!');
+      },
+      () => {
+        alert('Erro ao copiar link para a área de transferência!');
+      }
+    );
+  };
+
   const { step, isFirstStep, isLastStep, prev, next, goTo } = useSteps([
     <Players data={data} updateData={updateData} />,
     <TeamOptions data={data} updateData={updateData} />,
     <Results data={data} updateData={updateData} />,
   ]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search.slice(1));
+    const step = parseInt(params.get('step'));
+    if (step) goTo(step - 1);
+  }, []);
 
   return (
     <div className="App">
@@ -59,7 +84,12 @@ function App() {
               )}
               {!isLastStep && (
                 <Button variant="primary" disabled={isLastStep || (isFirstStep && data.players.length <= 1)} onClick={next}>
-                  {!isFirstStep && data.teams.length != 0 ? 'Gerar times' : 'Próximo'}
+                  {isFirstStep ? 'Próximo' : data.teams.length === 0 ? 'Gerar times' : 'Próximo'}
+                </Button>
+              )}
+              {isLastStep && (
+                <Button variant="primary" onClick={() => shareResults()}>
+                  Compartilhar
                 </Button>
               )}
             </Nav>

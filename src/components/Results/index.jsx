@@ -10,7 +10,7 @@ import JSONCrush from 'jsoncrush';
 function Results({ data, updateData }) {
   const { playersPerTeam, players, teams, reserves } = data;
 
-  const generateTeams = (tems) => {
+  const generateTeams = () => {
     const shuffledPlayers = players.sort(() => Math.random() - 0.5);
 
     const teamsTemp = [];
@@ -32,30 +32,8 @@ function Results({ data, updateData }) {
     console.log('reservesTemp', reservesTemp);
   };
 
-  // Create a Share button that copies the URL to the clipboard with data as query params and using
-
-  const shareResults = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('players', players.join(','));
-    url.searchParams.set('playersPerTeam', playersPerTeam);
-    url.searchParams.set('teams', encodeURIComponent(JSON.stringify(teams)));
-    url.searchParams.set('reserves', encodeURIComponent(JSON.stringify(reserves)));
-    url.searchParams.set('step', 3);
-
-    navigator.clipboard.writeText(url.href).then(
-      () => {
-        alert('Link copiado para a área de transferência!');
-      },
-      () => {
-        alert('Erro ao copiar link para a área de transferência!');
-      }
-    );
-  };
-
   useEffect(() => {
-    if (teams.length === 0) {
-      generateTeams();
-    }
+    if (teams.length === 0) generateTeams();
   }, []);
 
   return (
@@ -71,7 +49,6 @@ function Results({ data, updateData }) {
           {reserves.length > 0 && <PlayersGroup title={'Reservas'} players={reserves} style={{ '--hue': Math.floor(Math.random() * 360) + teams.length }} />}
         </Grid>
         <Button onClick={() => generateTeams()}>Gerar novamente</Button>
-        <Button onClick={() => shareResults()}>Compartilhar</Button>
       </Stack>
     </div>
   );

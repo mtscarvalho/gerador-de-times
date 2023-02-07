@@ -10,7 +10,7 @@ function PlayersGroup({ title, players, ...props }) {
         <Heading as={'h3'} size={'medium'}>
           {title}
         </Heading>
-        <ul className={style.list} id={`results-${title}`} suppressContentEditableWarning={true} contentEditable={true}>
+        <ul className={style.list} id={`results-${title}`}>
           {players.map((player, index) => (
             <li key={index}>{player}</li>
           ))}
